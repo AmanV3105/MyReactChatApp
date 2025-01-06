@@ -1,0 +1,80 @@
+.chatList{
+    flex: 1;
+    overflow: scroll;
+    .search{
+        display: flex;
+        align-items: center;
+        gap:20px;
+        padding: 20px;
+    }
+    .searchBar{
+        flex : 1;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.615);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        
+        input{
+            border: none;
+            background-color: transparent;
+            color: white;
+            flex: 1;
+            outline: none;
+        }
+    }
+    .add{
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.615);
+        cursor: pointer;
+        height: 36px;
+        width: 36px;
+    }
+    .item{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.615);
+        }
+        border-bottom: 1px solid rgb(28, 22, 22);
+
+        img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .texts{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            span{
+                font-weight: 500;
+            }
+            p{
+                font-weight: 300;
+                font-size: 14px;
+                .blueTick {
+                    color: #09266e;
+                    font-size: 15px;
+                    margin-left: 5px;
+                  }
+                  
+                  .greyTick {
+                    color: grey;
+                    font-size: 15px;
+                    margin-left: 5px;
+                  }
+                  
+            }
+
+            
+        }
+    }
+}
