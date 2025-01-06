@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "./login.css";
 import { toast } from "react-toastify";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, db } from "../../Firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 // import Uploadfile from "../../Firebase/Uploadfile";
@@ -9,40 +16,53 @@ import { doc, setDoc } from "firebase/firestore";
 const Login = () => {
   const [userImage, setUserImage] = useState({ file: null, url: "" });
   const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   const handleUserImage = (e) => {
     const file = e.target.files[0];
     setUserImage({ file: file, url: URL.createObjectURL(file) });
   };
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    const {Email, password} = data;
+    const { Email, password } = data;
 
-    try{
+    try {
       await signInWithEmailAndPassword(auth, Email, password);
-    } catch(err){
+    } catch (err) {
       toast.error(err.message);
-    } finally{
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
-  const handleRegister = async (e) =>{
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    const {username, Email, password} = data;
+    const { username, Email, password } = data;
     try {
       const res = await createUserWithEmailAndPassword(auth, Email, password);
-    
+
       console.log("User created:", res.user.uid);
-    
+
       // const imageURL = await Uploadfile(userImage.file);
       // console.log("Image URL:", imageURL);
-    
+
       await setDoc(doc(db, "users", res.user.uid), {
         username: username,
         email: Email,
@@ -51,12 +71,12 @@ const Login = () => {
         blocked: [],
       });
       console.log("User data saved to Firestore");
-    
+
       await setDoc(doc(db, "userChats", res.user.uid), {
         chats: [],
       });
       console.log("User chats initialized in Firestore");
-    
+
       toast.success("Your Account is Created! You can Login Now");
     } catch (err) {
       console.error("Error in handleRegister:", err);
@@ -64,17 +84,18 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-    
-
-  }
+  };
   return (
     <div className="login">
+      <div className="heading">
+        <h1>React Chat</h1>
+      </div>
       <div className="item">
         <h2>Welcome Back</h2>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Email" name="Email" />
           <input type="password" placeholder="Password" name="password" />
-          <button disabled = {loading}>{loading ? "Loading" : "Sign In"}</button>
+          <button disabled={loading}>{loading ? "Loading" : "Sign In"}</button>
         </form>
       </div>
       <div className="separator"></div>
@@ -93,8 +114,20 @@ const Login = () => {
           />
           <input type="text" placeholder="Username" name="username" />
           <input type="text" placeholder="Email" name="Email" />
-          <input type="password" placeholder="Password" name="password" />
-          <button disabled = {loading}>{loading ? "Loading" : "Sign Up"}</button>
+          <div className="password-container">
+            <input
+              type={type}
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+            <span className="eye-icon" onClick={handleToggle}>
+              <Icon icon={icon} size={25} />
+            </span>
+          </div>
+          <button disabled={loading}>{loading ? "Loading" : "Sign Up"}</button>
         </form>
       </div>
     </div>
