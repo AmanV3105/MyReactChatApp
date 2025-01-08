@@ -89,18 +89,24 @@ const ChatList = () => {
           // style={{ backgroundColor: chat?.isSeen ? "transparent" : "#5183fe"}}
         >
           <img
-            src={chat.user?.profilePicture || "./avatar.png"}
+            src={
+              chat.user.blocked.includes(currentUser.id)
+                ? "./avatar.png"
+                : chat.user.userImage || "./avatar.png"
+            }
             alt="User Avatar"
           />
           <div className="texts">
-            <span>{chat.user?.username || "Unknown User"}</span>
+            <span>{chat.user.blocked.includes(currentUser.id)
+                ? "User"
+                : chat.user.username}</span>
             <p>
               {chat.lastMessage || "No messages yet"}{" "}
-              {chat.isSeen ? (
+              {/* {chat.isSeen ? (
                 <span className="blueTick">✔✔</span> // Double blue tick
               ) : (
                 <span className="greyTick">✔</span> // Single grey tick
-              )}
+              )} */}
             </p>
           </div>
         </div>

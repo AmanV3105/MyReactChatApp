@@ -10,8 +10,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, db } from "../../Firebase/Firebase";
-import { doc, setDoc } from "firebase/firestore";
-// import Uploadfile from "../../Firebase/Uploadfile";
+import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import Uploadfile from "../../Firebase/Uploadfile";
 
 const Login = () => {
   const [userImage, setUserImage] = useState({ file: null, url: "" });
@@ -55,18 +55,27 @@ const Login = () => {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     const { username, Email, password } = data;
+    if (!username || !Email || !password)
+      return toast.warn("Please enter inputs!");
+    if (!userImage.file) return toast.warn("Please upload an avatar!");
+    // VALIDATING UNIQUE USERNAME
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return toast.warn("Select another username");
+    }
     try {
       const res = await createUserWithEmailAndPassword(auth, Email, password);
-
       console.log("User created:", res.user.uid);
 
-      // const imageURL = await Uploadfile(userImage.file);
-      // console.log("Image URL:", imageURL);
+      const imageURL = await Uploadfile(userImage.file);
+      console.log("Image URL:", imageURL);
 
       await setDoc(doc(db, "users", res.user.uid), {
         username: username,
         email: Email,
-        // userImage: imageURL,
+        userImage: imageURL,
         id: res.user.uid,
         blocked: [],
       });
@@ -102,10 +111,10 @@ const Login = () => {
       <div className="item">
         <h2>Create an Account</h2>
         <form onSubmit={handleRegister}>
-          {/* <label htmlFor="file">
+          <label htmlFor="file">
             Upload an image
             <img src={userImage.url || "./avatar.png"} alt="" />
-          </label> */}
+          </label> 
           <input
             type="file"
             id="file"

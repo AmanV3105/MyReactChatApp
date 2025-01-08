@@ -12,7 +12,7 @@ const useChatStore = create((set) => ({
   changeChat: (chatId, user) => {
     const currentUser = useUserStore.getState().currentUser;
 
-    // check if currentuser is blocked by receiver
+    // checking if currentuser is blocked by receiver
     if (user.blocked.includes(currentUser.id)) {
       return set({
         chatId,
@@ -43,6 +43,14 @@ const useChatStore = create((set) => ({
   },
   changeBlock: () => {
     set(state => ({ ...state, isRecieverBlocked: !state.isRecieverBlocked }));
-  }
+  },
+  resetChat: () => {
+    set({
+      chatId: null,
+      user: null,
+      isCurrentUserBlocked: false,
+      isReceiverBlocked: false,
+    });
+  },
 }));
 export default useChatStore;

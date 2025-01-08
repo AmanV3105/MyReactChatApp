@@ -1,106 +1,105 @@
 .login {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 100px;
-    
-    .heading {
-        display: flex;
-        position: absolute;
-        opacity: 0.3;
-        left: 21%;
-        justify-content: center;
-        align-items: center;
-        font-size: 4rem;
-        z-index: -1;
-    }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 100px;
   
-    .item {
-      flex: 1;
+  .heading {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-  
-      h2 {
-        margin-bottom: 20px;
-      }
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
-  
-      input {
-        padding: 10px 28px;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        background-color: rgba(17, 26, 29, 0.674);
-        color: black;
-        font-weight: 700;
-      }
-  
-      label {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        text-decoration: underline;
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 10px;
-          object-fit: cover;
-          opacity: 0.7;
-        }
-      }
-  
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #07532f94;
-        color: black;
-        border: none;
-        cursor: pointer;
-        font-weight: 1000;
-        border-radius: 5px;
-  
-        &:hover {
-          background-color: #07532f;
-          transform: scale3d(1.05, 1.05, 1.05);
-        }
-      }
-    }
-  
-    .separator {
-      height: 80%;
-      width: 2px;
-      background-color: rgba(48, 61, 66, 0.719);
-    }
-  
-    /* New styles for password container */
-    .password-container {
-      position: relative;
-      width: 100%;
-    }
-  
-    .password-container input {
-      width: 100%;
-      padding-right: 35px; /* Space for the eye icon */
-    }
-  
-    .password-container .eye-icon {
       position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
+      opacity: 0.3;
+      left: 21%;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+      z-index: -1;
+  }
+
+  .item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    h2 {
+      margin-bottom: 20px;
     }
   }
-  
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      padding: 10px 28px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      background-color: rgba(17, 26, 29, 0.674);
+      color: black;
+      font-weight: 700;
+    }
+
+    label {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: underline;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+        opacity: 0.7;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #07532f94;
+      color: black;
+      border: none;
+      cursor: pointer;
+      font-weight: 1000;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #07532f;
+        transform: scale3d(1.05, 1.05, 1.05);
+      }
+    }
+  }
+
+  .separator {
+    height: 80%;
+    width: 2px;
+    background-color: rgba(48, 61, 66, 0.719);
+  }
+
+  /* New styles for password container */
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .password-container input {
+    width: 100%;
+    padding-right: 35px; /* Space for the eye icon */
+  }
+
+  .password-container .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

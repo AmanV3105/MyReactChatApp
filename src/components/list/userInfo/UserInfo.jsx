@@ -10,7 +10,7 @@ const UserInfo = () => {
   return (
     <div className='userInfo'>
         <div className='user'>
-            <img src = "./avatar.png"></img>
+            <img src = {currentUser.userImage || "./avatar.png"}></img>
             <h3 style={{marginRight : "23px"}}>{currentUser.username}</h3>
         </div>
         <div className='icons'>

@@ -106,7 +106,7 @@ const AddUser = () => {
       {user && (
         <div className="user">
           <div className="detail">
-            <img src="./avatar.png" alt="User Avatar" />
+            <img src={user.userImage || "./avatar.png"} alt="User Avatar" />
             <span style={{ color: "white" }}>{user.username}</span>
           </div>
           <button onClick={handleAddUser}>Add User</button>
