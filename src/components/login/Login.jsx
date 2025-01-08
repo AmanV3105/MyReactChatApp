@@ -10,7 +10,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, db } from "../../Firebase/Firebase";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import Uploadfile from "../../Firebase/Uploadfile";
 
 const Login = () => {
@@ -85,8 +92,10 @@ const Login = () => {
         chats: [],
       });
       console.log("User chats initialized in Firestore");
-
       toast.success("Your Account is Created! You can Login Now");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (err) {
       console.error("Error in handleRegister:", err);
       toast.error(err.message);
@@ -114,7 +123,7 @@ const Login = () => {
           <label htmlFor="file">
             Upload an image
             <img src={userImage.url || "./avatar.png"} alt="" />
-          </label> 
+          </label>
           <input
             type="file"
             id="file"
