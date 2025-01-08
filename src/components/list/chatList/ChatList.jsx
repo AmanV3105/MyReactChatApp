@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./chatList.css";
 import SearchIcon from "@mui/icons-material/Search";
 import AddUser from "./addUser/AddUser";
@@ -61,6 +61,20 @@ const ChatList = () => {
       console.error("Error updating seen status:", error);
     }
   };
+    const setModeRef = useRef(null);
+    const handleClickOutside = (event) => {
+      if (setModeRef.current && !setModeRef.current.contains(event.target)) {
+        setMode(false);
+      }
+    };
+  
+    useEffect(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
   const filteredChats = chats.filter(c => c.user.username.toLowerCase().includes(input.toLowerCase()));
   return (
     <div className="chatList">
@@ -70,7 +84,7 @@ const ChatList = () => {
           <input type="text" placeholder="Search or start new chat" onChange={(e)=>{setInput(e.target.value)}}/>
         </div>
         <img
-          src={addMode ? "./minus.png" : "./plus.png"}
+          src="./plus.png"
           className="add"
           onClick={() => setMode((prev) => !prev)}
           alt="Toggle Add Mode"
@@ -111,8 +125,12 @@ const ChatList = () => {
           </div>
         </div>
       ))}
-
-      {addMode && <AddUser />}
+      {addMode && (
+        <div ref={setModeRef}>
+          <AddUser />
+        </div>
+      )}
+      {/* {addMode && <AddUser />} */}
     </div>
   );
 };

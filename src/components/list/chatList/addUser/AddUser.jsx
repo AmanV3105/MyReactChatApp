@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../Firebase/Firebase";
 import useUserStore from "../../../../Firebase/Store";
+import { toast } from "react-toastify";
 
 const AddUser = () => {
   const [user, setUser] = useState(null);
@@ -30,6 +31,7 @@ const AddUser = () => {
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         console.log("No matching user found.");
+        toast.error("User not found");
         setUser(null);
         return;
       }
@@ -52,6 +54,7 @@ const AddUser = () => {
 
         if (existingChat) {
           console.log("Chat with this user already exists.");
+          toast.warn("Chat with this user already exists.");
           return;
         }
       }
